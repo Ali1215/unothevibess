@@ -1,10 +1,5 @@
 ############## Playing Card Detector Functions ###############
-#
 # Author: Evan Juras
-# Date: 9/5/17
-# Description: Functions and classes for CardDetector.py that perform 
-# various steps of the card detection algorithm
-
 
 # Import necessary packages
 import numpy as np
@@ -48,30 +43,15 @@ class Query_card:
         self.corner_pts = [] # Corner points of card
         self.center = [] # Center point of card
         self.warp = [] # 200x300, flattened, grayed, blurred image
-        self.rank_img = [] # Thresholded, sized image of card's rank
-        self.suit_img = [] # Thresholded, sized image of card's suit
-        self.best_rank_match = "Unknown" # Best matched rank
-        self.best_suit_match = "Unknown" # Best matched suit
-        self.rank_diff = 0 # Difference between rank image and best matched train rank image
-        self.suit_diff = 0 # Difference between suit image and best matched train suit image
-
-
 
 def preprocess_image(image):
     """Returns a grayed, blurred, and adaptively thresholded camera image."""
-
+    #grayscale the image
     gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+    #blurs the image
     blur = cv2.GaussianBlur(gray,(5,5),0)
 
-    # The best threshold level depends on the ambient lighting conditions.
-    # For bright lighting, a high threshold must be used to isolate the cards
-    # from the background. For dim lighting, a low threshold must be used.
-    # To make the card detector independent of lighting conditions, the
-    # following adaptive threshold method is used.
-    #
-    # A background pixel in the center top of the image is sampled to determine
-    # its intensity. The adaptive threshold is set at 50 (THRESH_ADDER) higher
-    # than that. This allows the threshold to adapt to the lighting conditions.
+    #apply theshold
     img_w, img_h = np.shape(image)[:2]
     bkg_level = gray[int(img_h/100)][int(img_w/2)]
     thresh_level = bkg_level + BKG_THRESH
@@ -123,8 +103,7 @@ def find_cards(thresh_image):
     return cnts_sort, cnt_is_card
 
 def preprocess_card(contour, image):
-    """Uses contour to find information about the query card. Isolates rank
-    and suit images from the card."""
+    """Uses contour to find information about the query card."""
 
     # Initialize new Query_card object
     qCard = Query_card()
@@ -141,12 +120,6 @@ def preprocess_card(contour, image):
     x,y,w,h = cv2.boundingRect(contour)
     qCard.width, qCard.height = w, h
 
-    # Find center point of card by taking x and y average of the four corners.
-    average = np.sum(pts, axis=0)/len(pts)
-    cent_x = int(average[0][0])
-    cent_y = int(average[0][1])
-    qCard.center = [cent_x, cent_y]
-    
     # Warp card into 200x300 flattened image using perspective transform
     qCard.warp = flattener(image, pts, w, h)
     
@@ -155,8 +128,8 @@ def preprocess_card(contour, image):
 
 def flattener(image, pts, w, h):
     """Flattens an image of a card into a top-down 200x300 perspective.
-    Returns the flattened, re-sized, grayed image.
-    See www.pyimagesearch.com/2014/08/25/4-point-opencv-getperspective-transform-example/"""
+    Returns the flattened, re-sized, grayed image."""
+    
     temp_rect = np.zeros((4,2), dtype = "float32")
     
     s = np.sum(pts, axis = 2)
