@@ -106,11 +106,12 @@ print("Top Card")
 print(g.topCard)
 
 a = arduino.readline()
+#wait for user to either press play or skip button
 while not ((a == b'played\r\n') or (a == b'skipped\r\n')) :#
     a = arduino.readline()
     #print(a)
     
-print(a)
+
 if a == b'played\r\n':
     #try:
     col, num = identify_card()
@@ -124,6 +125,7 @@ else:
     #some function to draw a card
     g.reset()
     newCard = g.select_card()
+    #keep moving through until found is card
     while True:
         g.move_a_card()
         col, num = identify_card()
