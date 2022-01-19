@@ -5,9 +5,7 @@ import numpy as np
 import time
 import os
 import Cards
-
 from card import card
-
 from skimage.metrics import structural_similarity as ssim
 
 
@@ -22,9 +20,6 @@ def identify_card():
     s, image = cam.read()
     image = cv2.rotate(image, cv2.cv2.ROTATE_90_CLOCKWISE)
     cv2.imwrite("capture_card.jpg",image)
-
-    
-
 
     # Pre-process camera image (gray, blur, and threshold it)
     pre_proc = Cards.preprocess_image(image)
@@ -64,16 +59,3 @@ def identify_card():
         else:
             num = int(maxFileName[-5])
         return maxFileName[0].upper(), num
-
-
-        
-        
-        
-        
-        
-
-        
-
-   
-
-
