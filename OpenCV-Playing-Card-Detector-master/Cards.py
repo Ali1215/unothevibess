@@ -1,5 +1,6 @@
 ############## Playing Card Detector Functions ###############
 # Author: Evan Juras
+# https://www.youtube.com/watch?v=m-QPjO-2IkA
 
 # Import necessary packages
 import numpy as np
