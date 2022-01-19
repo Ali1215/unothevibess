@@ -13,8 +13,6 @@ from skimage.metrics import structural_similarity as ssim
 # The main loop repeatedly grabs frames from the video stream
 # and processes them to find and identify playing cards.
 def identify_card():
-
-    cam_quit = 0 # Loop control variable
     
     cam = cv2.VideoCapture(0,cv2.CAP_DSHOW)   # 0 -> index of camera
     s, image = cam.read()
