@@ -44,21 +44,20 @@ def identify_card():
         maxScore = -2
         tempScore=-2
         maxFileName = ''
-        #print(os.listdir("./OpenCV-Playing-Card-Detector-master/unoCardPictures/"))
+        
         for file in os.listdir("./OpenCV-Playing-Card-Detector-master/unoCardPictures"):
             #print(file)
             template = cv2.imread("./OpenCV-Playing-Card-Detector-master/unoCardPictures/"+file)
+            #calculate correlation coefficient using scikit-image
             tempScore = ssim(processedCard, template,win_size=11,multichannel=True)
-            #print(file + str(tempScore))
-            #print(maxScore)
-            #print(maxFileName)
+            
             if tempScore>maxScore:
                 maxScore = tempScore
                 maxFileName = file
         print(maxFileName)    
         
     
-
+        #parse the file name to get card info
         num = 0
         if (maxFileName[-7] == '-'):
             num = -1*int(maxFileName[-5])
@@ -75,7 +74,6 @@ def identify_card():
 
         
 
-    # Close all windows and close the PiCamera video stream.
-    cv2.destroyAllWindows()
+   
 
 
