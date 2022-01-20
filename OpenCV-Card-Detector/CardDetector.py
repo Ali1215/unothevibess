@@ -38,9 +38,9 @@ def identify_card():
         tempScore=-2
         maxFileName = ''
         
-        for file in os.listdir("./OpenCV-Playing-Card-Detector-master/unoCardPictures"):
+        for file in os.listdir("./OpenCV-Card-Detector/unoCardPictures"):
             #print(file)
-            template = cv2.imread("./OpenCV-Playing-Card-Detector-master/unoCardPictures/"+file)
+            template = cv2.imread("./OpenCV-Card-Detector/unoCardPictures/"+file)
             #calculate correlation coefficient using scikit-image
             tempScore = ssim(processedCard, template,win_size=11,multichannel=True)
             

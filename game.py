@@ -4,7 +4,7 @@ import numpy as np
 import serial
 import sys
 import time
-sys.path.insert(1, 'OpenCV-Playing-Card-Detector-master')
+sys.path.insert(1, 'OpenCV-Card-Detector')
 from CardDetector import identify_card
 
 arduino = serial.Serial(port='COM4', baudrate=115200, timeout=.1)
