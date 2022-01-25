@@ -98,58 +98,48 @@ class game:
         
 
 g = game()
-print("Player 1 Hand")
-print(g.p1)
-print("Player 2 Hand")
-print(g.p2)
-print("Top Card")
-print(g.topCard)
+while True: 
+    print("Player 1 Hand")
+    print(g.p1)
+    print("Player 2 Hand")
+    print(g.p2)
+    print("Top Card")
+    print(g.topCard)
 
-a = arduino.readline()
-#wait for user to either press play or skip button
-while not ((a == b'played\r\n') or (a == b'skipped\r\n')) :#
     a = arduino.readline()
-    #print(a)
-    
+    #wait for user to either press play or skip button
+    while not ((a == b'played\r\n') or (a == b'skipped\r\n')) :#
+        a = arduino.readline()
+        #print(a)
 
-if a == b'played\r\n':
-    #try:
-    col, num = identify_card()
-    ca = card(col, int(num))
-    g.turn(ca)
-    #print("test")
-    #except ValueError:
-    #    col, num = identify_card()
-    #    g.turn(card(col, num))
-else:
-    #some function to draw a card
-    g.reset()
-    newCard = g.select_card()
-    #keep moving through until found is card
-    while True:
-        g.move_a_card()
+
+    if a == b'played\r\n':
+        #try:
         col, num = identify_card()
-        if (newCard == card(col, num)):
-            g.p1.add_card(newCard)
-            g.currentTurn = 2
-            break
+        ca = card(col, int(num))
+        g.turn(ca)
+        #print("test")
+        #except ValueError:
+        #    col, num = identify_card()
+        #    g.turn(card(col, num))
+    else:
+        #some function to draw a card
+        g.reset()
+        newCard = g.select_card()
+        #keep moving through until found is card
+        while True:
+            g.move_a_card()
+            col, num = identify_card()
+            if (newCard == card(col, num)):
+                g.p1.add_card(newCard)
+                g.currentTurn = 2
+                break
 
-print("Player 1 Hand")
-print(g.p1)
-print("Player 2 Hand")
-print(g.p2)
-print("Top Card")
-print(g.topCard)
+    print("Player 1 Hand")
+    print(g.p1)
+    print("Player 2 Hand")
+    print(g.p2)
+    print("Top Card")
+    print(g.topCard)
 
-g.cpu_choose_card()
-
-#print("Top Card")
-#print(g.topCard)
-
-#g.turn(card(input("Color"), int(input("number"))))
-print("Player 1 Hand")
-print(g.p1)
-print("Player 2 Hand")
-print(g.p2)
-print("Top Card")
-print(g.topCard)
+    g.cpu_choose_card()
